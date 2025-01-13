@@ -1,4 +1,4 @@
-## Local Purple Air Integration with both Celsius and Fahrenheit in Adjustments
+## Local Purple Air Integration with both Celsius and Fahrenheit in Adjustments & HA 2025.1 support
 This is an integration for home assistant that works integrates with local
 polling on your PurpleAir devices on your local network.
 
