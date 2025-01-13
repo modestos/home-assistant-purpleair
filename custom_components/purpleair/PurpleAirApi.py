@@ -52,13 +52,21 @@ def calc_dewpoint(temp_f, humidity):
 
 def process_heat_adjustments(json_result):
     """Since the purple air devices are affected by heat from itself, modify readings to account for difference"""
-    new_temp = json_result['current_temp_f'] + TEMP_ADJUSTMENT
+    new_temp_f = json_result['current_temp_f'] + TEMP_ADJUSTMENT
     new_humid = min(100, json_result['current_humidity'] + HUMIDITY_ADJUSTMENT)
+    new_dewpoint_f = calc_dewpoint(new_temp_f, new_humid)
+
+# Convert the adjusted temperature to Celsius [added by mod].
+    new_temp_c = round((new_temp_f - 32) * 5.0 / 9.0, 2)
+# Convert the dew point to Celsius [added by mod].
+    new_dewpoint_c = round((new_dewpoint_f - 32) * 5.0 / 9.0, 2)
 
     return {
-        'current_temp': new_temp,
-        'current_humidity': new_humid,
-        'current_dewpoint': calc_dewpoint(new_temp, new_humid)
+        'current_temp_f': new_temp_f,           # Fahrenheit
+        'current_temp_c': new_temp_c,           # Celsius
+        'current_dewpoint_f': new_dewpoint_f,   # Fahrenheit
+        'current_dewpoint_c': new_dewpoint_c,    # Celsius
+        'current_humidity': new_humid
     }
 
 
@@ -184,6 +192,7 @@ class PurpleAirApi:
         return results
 
     async def _update(self, now=None):
+        """Fetch and process data from sensors."""
         local_node_ips = [n['ip_address'] for n in self._nodes.values()]
         _LOGGER.debug('Purple Air nodes: %s', local_node_ips)
 
@@ -196,9 +205,9 @@ class PurpleAirApi:
             nodes[pa_sensor_id] = {
                 'device_location': result['place'],
                 'rssi': result['rssi'],
-                'current_temp_raw': result['current_temp_f'],
+                'current_temp_raw': result['current_temp_f'], # Fahrenheit
                 'current_humidity_raw': result['current_humidity'],
-                'current_dewpoint_raw': result['current_dewpoint_f'],
+                'current_dewpoint_raw': result['current_dewpoint_f'], # Fahrenheit
                 'pressure': result['pressure'],
                 'is_dual': is_dual
             }
