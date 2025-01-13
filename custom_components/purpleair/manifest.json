@@ -5,6 +5,7 @@
   "iot_class": "local_polling",
   "config_flow": true,
   "documentation": "https://github.com/catchdave/home-assistant-purpleair",
+  "documentation": "https://github.com/modestos/home-assistant-purpleair",
   "requirements": [],
   "ssdp": [],
   "zeroconf": [],
@@ -13,6 +14,7 @@
   "codeowners": [
     "@gibwar",
     "@catchdave",
+    "@offbyone",
     "@modestos"
   ]
 }
