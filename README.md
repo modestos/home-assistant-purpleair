@@ -45,6 +45,10 @@ This component is licensed under the MIT license, so feel free to copy,
 enhance, and redistribute as you see fit.
 
 ## Releases
+### 2.0.5
+* This release includes critical updates to ensure compatibility with recent Home Assistant (HA) changes in 2025.1+. Several measurement constants that were deprecated and removed in the 2025 updates have been restored and reorganized for continued functionality.
+Dual Support for Temperature Units:
+* Added separate sensor mappings for Celsius and Fahrenheit measurements: temperature_celsius and temperature_fahrenheit, dewpoint_celsius and dewpoint_fahrenheit.
 
 ### 2.0.3
 Added support for dual sensor devices that have a physical issue with one sensor. If a device has dual sensors and one of them is > 300 difference, it will set the confidence to "Severe" and instead of averaging the values, will use the lower value exclusively.
