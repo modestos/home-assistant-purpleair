@@ -1,5 +1,13 @@
 """Constants for the Purple Air integration."""
-from homeassistant.const import TEMP_FAHRENHEIT, SIGNAL_STRENGTH_DECIBELS_MILLIWATT, PRESSURE_HPA,PERCENTAGE, DEVICE_CLASS_AQI
+#added support for CELSIUS - mod 
+
+from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.const import (
+    PERCENTAGE,
+    SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
+    UnitOfPressure,
+    UnitOfTemperature,
+)
 
 AQI_BREAKPOINTS = {
     'pm2_5': [
@@ -17,19 +25,21 @@ PARTICLE_PROPS = ['pm1_0_atm', 'pm2_5_atm', 'pm10_0_atm']
 
 # Map of sensors to create entities for
 SENSORS_MAP = {
-    'pm2_5_aqi_a_raw':         {'key': 'pm2_5_aqi_raw',    'uom': DEVICE_CLASS_AQI, 'icon': 'mdi:blur-linear'},
-    'pm2_5_aqi_b_raw':         {'key': 'pm2_5_aqi_b_raw',  'uom': DEVICE_CLASS_AQI, 'icon': 'mdi:blur-linear'},
-    'pm2_5_atm_confidence':    {'key': 'pm2_5_atm_conf',   'uom': None,             'icon': 'mdi:seal'},
-    'particulate_matter_0_1':  {'key': 'pm1_0_atm',        'uom': DEVICE_CLASS_AQI, 'icon': 'mdi:blur'},
-    'particulate_matter_2_5':  {'key': 'pm2_5_atm',        'uom': DEVICE_CLASS_AQI, 'icon': 'mdi:blur'},
-    'particulate_matter_10':   {'key': 'pm10_0_atm',       'uom': DEVICE_CLASS_AQI, 'icon': 'mdi:blur'},
-    'air_quality_index_epa':   {'key': 'aqi_epa',          'uom': DEVICE_CLASS_AQI, 'icon': 'mdi:weather-hazy'},
-    'air_quality_index_lrapa': {'key': 'aqi_lrapa',        'uom': DEVICE_CLASS_AQI, 'icon': 'mdi:weather-hazy'},
-    'humidity':                {'key': 'current_humidity', 'uom': PERCENTAGE,       'icon': 'mdi:water-percent'},
-    'temperature':             {'key': 'current_temp',     'uom': TEMP_FAHRENHEIT,  'icon': 'mdi:thermometer'},
-    'dewpoint':                {'key': 'current_dewpoint', 'uom': TEMP_FAHRENHEIT,  'icon': 'mdi:water-outline'},
-    'pressure':                {'key': 'pressure',         'uom': PRESSURE_HPA,     'icon': 'mdi:gauge'},
-    'rssi':                    {'key': 'rssi',             'uom': SIGNAL_STRENGTH_DECIBELS_MILLIWATT, 'icon': 'mdi:wifi'}
+    'pm2_5_aqi_a_raw':         {'key': 'pm2_5_aqi_raw',      'uom': SensorDeviceClass.AQI,              'icon': 'mdi:blur-linear'},
+    'pm2_5_aqi_b_raw':         {'key': 'pm2_5_aqi_b_raw',    'uom': SensorDeviceClass.AQI,              'icon': 'mdi:blur-linear'},
+    'pm2_5_atm_confidence':    {'key': 'pm2_5_atm_conf',     'uom': None,                               'icon': 'mdi:seal'},
+    'particulate_matter_0_1':  {'key': 'pm1_0_atm',          'uom': SensorDeviceClass.AQI,              'icon': 'mdi:blur'},
+    'particulate_matter_2_5':  {'key': 'pm2_5_atm',          'uom': SensorDeviceClass.AQI,              'icon': 'mdi:blur'},
+    'particulate_matter_10':   {'key': 'pm10_0_atm',         'uom': SensorDeviceClass.AQI,              'icon': 'mdi:blur'},
+    'air_quality_index_epa':   {'key': 'aqi_epa',            'uom': SensorDeviceClass.AQI,              'icon': 'mdi:weather-hazy'},
+    'air_quality_index_lrapa': {'key': 'aqi_lrapa',          'uom': SensorDeviceClass.AQI,              'icon': 'mdi:weather-hazy'},
+    'humidity':                {'key': 'current_humidity',   'uom': PERCENTAGE,                         'icon': 'mdi:water-percent'},
+    'temperature_fahrenheit':  {'key': 'current_temp_f',     'uom': UnitOfTemperature.FAHRENHEIT,       'icon': 'mdi:thermometer'},
+    'dewpoint_fahrenheit':     {'key': 'current_dewpoint_f', 'uom': UnitOfTemperature.FAHRENHEIT,       'icon': 'mdi:water-outline'},
+    'temperature_celsius':     {'key': 'current_temp_c',     'uom': UnitOfTemperature.CELSIUS,          'icon': 'mdi:thermometer'},
+    'dewpoint_celsius':        {'key': 'current_dewpoint_c', 'uom': UnitOfTemperature.CELSIUS,          'icon': 'mdi:water-outline'},
+    'pressure':                {'key': 'pressure',           'uom': UnitOfPressure.HPA,                 'icon': 'mdi:gauge'},
+    'rssi':                    {'key': 'rssi',               'uom': SIGNAL_STRENGTH_DECIBELS_MILLIWATT, 'icon': 'mdi:wifi'}
 }
 SENSORS_DUAL_ONLY = ['pm2_5_aqi_b_raw']
 
